@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure E-Commerce - Admin Integration</title>
+    <link rel="stylesheet" type="text/CSS" href="index1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-lock"></i>
+                <span>SecureShop</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-bag"></i> Products</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> Contact</a></li>
+                    <li><a href="#" id="adminLink"><i class="fas fa-cog"></i> Admin</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-primary" style="text-decoration: none;">
+                    <i class="fas fa-user"></i> Login
+                </a>
+                <a href="login.html?showRegister=true" class="btn btn-success" style="text-decoration: none;">
+                    <i class="fas fa-user-plus"></i> Register
+                </a>
+                <!-- Cart Icon -->
+               <!-- Shopping Cart Icon in Header -->
+<div class="cart-icon">
+    <a href="#" id="cartButton">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+    </a>
+</div>
+
+<!-- Cart Modal -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h3>Your Shopping Cart</h3>
+            <span class="close-cart">&times;</span>
+        </div>
+        <div class="cart-body">
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+            </div>
+            <div class="cart-summary">
+                <div class="summary-item">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Shipping:</span>
+                    <span id="cartShipping">$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax:</span>
+                    <span id="cartTax">$0.00</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="btn btn-primary btn-checkout">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Secure E-Commerce Platform</h1>
+            <p>Shop with confidence using our secure payment system and advanced fraud protection</p>
+            <button class="btn btn-primary">Shop Now <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Products Section -->
+        <h2 class="section-title">Featured Products</h2>
+        <div class="product-grid" id="productGrid">
+            <!-- Products will be dynamically added here -->
+        </div>
+
+        <!-- Shopping Cart Sidebar -->
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h3>Your Shopping Cart</h3>
+                <button class="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                </div>
+                <button class="btn btn-primary" id="checkoutBtn">Proceed to Checkout</button>
+            </div>
+        </div>
+        <div class="cart-overlay" id="cartOverlay"></div>
+
+        <!-- Admin Panel -->
+        <section class="admin-panel" id="adminSection">
+            <div class="admin-header">
+                <h2 class="section-title">Admin Dashboard</h2>
+                <button class="btn btn-primary" id="addProductBtn">Add New Product</button>
+            </div>
+            <div class="admin-tabs">
+                <div class="admin-tab active" data-tab="products">Products</div>
+                <div class="admin-tab" data-tab="orders">Orders</div>
+                <div class="admin-tab" data-tab="users">Users</div>
+            </div>
+            <div class="admin-content">
+                <div class="admin-tab-content active" id="productsTab">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminProductsTable">
+                            <!-- Admin products will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="admin-tab-content" id="ordersTab">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ORD-1001</td>
+                                <td>John Smith</td>
+                                <td>2023-06-15</td>
+                                <td>$249.99</td>
+                                <td><span class="status-badge status-shipped">Shipped</span></td>
+                                <td>
+                                    <button class="btn btn-primary">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD-1002</td>
+                                <td>Jane Doe</td>
+                                <td>2023-06-14</td>
+                                <td>$149.99</td>
+                                <td><span class="status-badge status-processing">Processing</span></td>
+                                <td>
+                                    <button class="btn btn-primary">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="admin-tab-content" id="usersTab">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Admin User</td>
+                                <td>admin@secureshop.com</td>
+                                <td>Administrator</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="btn btn-primary">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>John Smith</td>
+                                <td>john@example.com</td>
+                                <td>Customer</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="btn btn-primary">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="addProductModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Product</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Home & Kitchen">Home & Kitchen</option>
+                        <option value="Books">Books</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price ($)</label>
+                    <input type="number" id="productPrice" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productStock">Stock Quantity</label>
+                    <input type="number" id="productStock" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productImage">Image URL</label>
+                    <input type="text" id="productImage" value="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="cancelProductBtn">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Footer -->
+   <footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>SecureShop</h4>
+                <p>Your trusted e-commerce platform for secure and convenient shopping experiences.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/PayPal/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/PayPal?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/paypal/?hl=en"><i class="fab fa-instagram"></i></a>
+                    <a href="https://in.linkedin.com/company/paypal"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">All Products</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Sale Items</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Subscribe to get special offers and once-in-a-lifetime deals.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-cc-apple-pay"></i>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 SecureShop. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+   <script src="index1.js"></script>
+</body>
+</html>
